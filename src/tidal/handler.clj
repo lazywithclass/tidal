@@ -1,19 +1,23 @@
 (ns tidal.handler
   (:require [compojure.core :refer :all]
+            [compojure.core :refer [GET POST defroutes context]]
+            [compojure.route :refer [not-found resources]]
             [compojure.route :as route]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+            [tidal.fetcher :as fetcher]))
 
 
-(defn hello[& args] "hello!")
-
-(defn save-haproxy-csv-url[path args & body]
+(defn example-post[args & body]
   (println args)
-  (println body))
+  (println body)
+  "example")
 
 (defroutes app-routes
-  (GET "/" [] hello)
-  (POST "/api/1/haproxy/url" [] save-haproxy-csv-url)
-  (route/not-found "Not Found"))
+  (context "/api" []
+           (POST "/example" [] example-post))
+  (not-found "Not Found"))
 
 (def app
-  (wrap-defaults app-routes site-defaults))
+  (wrap-defaults app-routes (assoc site-defaults :security false)))
+
+(fetcher/start)

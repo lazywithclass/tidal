@@ -2,12 +2,14 @@
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :min-lein-version "2.0.0"
-  :dependencies [[org.clojure/clojure "1.6.0"]
+  :dependencies [[org.clojure/clojure "1.7.0"]
                  [compojure "1.3.1"]
                  [overtone "0.9.1"]
                  [clj-http "2.0.0"]
-                 [ring/ring-defaults "0.1.2"]]
-  :plugins [[lein-ring "0.8.13"]]
+                 [ring/ring-defaults "0.1.2"]
+                 [com.taoensso/carmine "2.12.0"]]
+  :plugins [[lein-ring "0.8.13"]
+            [lein-exec "0.3.5"]]
   :ring {:handler tidal.handler/app}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
